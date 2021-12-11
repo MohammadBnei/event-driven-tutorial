@@ -1,0 +1,14 @@
+{
+  "type": "mongodb",
+  "url": "mongodb://toor:passdorw@mongo/",
+  "useUnifiedTopology": true,
+  "useNewUrlParser": true,
+  "useFindAndModify": false,
+  "useCreateIndex": true,
+  "entities": [
+    "src/entity/*.js"
+  ],
+  "cli": {
+    "entitiesDir": "src/entity"
+  }
+}

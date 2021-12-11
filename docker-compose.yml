@@ -1,0 +1,47 @@
+version: "3"
+
+services:
+  admin:
+    image: node:14-alpine
+    working_dir: /app
+    volumes:
+      - ./admin/:/app/
+    command: npm start
+    ports:
+      - 4000:8000
+    environment:
+      - RABBITMQ_URL=amqp://rabbit
+  
+  main:
+    image: node:14-alpine
+    working_dir: /app
+    volumes:
+      - ./main/:/app/
+    command: npm start
+    ports:
+      - 4001:8001
+    environment:
+      - RABBITMQ_URL=amqp://rabbit
+
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=passdorw
+
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=toor
+      - MONGO_INITDB_ROOT_PASSWORD=passdorw
+      - MONGO_INITDB_DATABASE=yt_node_main
+
+  rabbit:
+    image: rabbitmq:3-management
+    hostname: my-rabbit
+    ports:
+      - 15672:15672
