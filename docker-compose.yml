@@ -5,7 +5,7 @@ services:
     image: node:14-alpine
     working_dir: /app
     volumes:
-      - ./admin/:/app/
+      - ./admin:/app
     command: npm start
     ports:
       - 4000:8000
@@ -16,7 +16,7 @@ services:
     image: node:14-alpine
     working_dir: /app
     volumes:
-      - ./main/:/app/
+      - ./main:/app
     command: npm start
     ports:
       - 4001:8001

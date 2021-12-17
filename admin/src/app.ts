@@ -18,20 +18,11 @@ createConnection().then(db => {
                 throw error1
             }
 
-            channel.assertQueue('product_liked', { durable: false })
-
             const app = express()
 
             app.use(cors())
 
             app.use(express.json())
-
-            channel.consume('product_liked', async (msg) => {
-                const { id: productId } = JSON.parse(msg.content.toString())
-                const product = await productRepository.findOne(productId)
-                product.likes++
-                await productRepository.save(product)
-            })
 
             app.get('/api/products', async (req: Request, res: Response) => {
                 const products = await productRepository.find()
